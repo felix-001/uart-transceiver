@@ -1,7 +1,8 @@
-/*****************************************************
-/* author : felix
- * 2016-07-23 1st version
-*******************************************************/
+/**********************************
+ * author:felix
+ *  date:2016-07-23
+ * 
+ * ***********************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -334,19 +335,20 @@ void uart_server_start( char *port )
     g_read_data = malloc( data_sz );
     if ( NULL == g_read_data ) {
         ERR("get memory %d size error\n", data_sz );
-        return;
+        goto err;
     }
     read = uart_read( fd, g_read_data, data_sz );
     if ( read != data_sz ) {
         ERR("uart_read error, read = %d\n", read);
-        return;
+        goto err;
     }
     written = fwrite( g_read_data, data_sz, 1, fp);
     if ( written != 1 ) {
         ERR(" fwrite error, written = %d\n", written);
-        return;
+        goto err;
     }
 
+err:
     free( g_read_data );
     close( fd );
 	fclose( fp );
