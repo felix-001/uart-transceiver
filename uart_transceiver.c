@@ -264,7 +264,7 @@ ssize_t uart_write( int fd, char *in, size_t inlen )
 	while ( left > 0 ) {
         /*tcflush(fd, TCIOFLUSH);*/
 		if ( ( written = write( fd, in, left )) < 0 ) {
-            if ( errno = EAGAIN) {
+            if ( errno == EAGAIN) {
                 continue;
             }
 			if ( left == inlen ) {
